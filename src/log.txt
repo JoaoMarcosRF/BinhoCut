@@ -1,0 +1,201 @@
+15/10/2025 21:17:44 | Iniciando novo processamento, bloqueando a fila.
+15/10/2025 21:17:47 | ⚠️ Tentativa de upload enquanto um processamento está em andamento.
+15/10/2025 21:17:51 | UPLOAD: FANTASTICO_sobe_para_225_o_numero_de_casos_suspeitos_de_intoxicacao_por_metanol_no_Brasil.mp4
+15/10/2025 21:17:52 | ERRO: got an unexpected keyword argument 'verbose'
+15/10/2025 21:17:52 | Fila de processamento liberada.
+15/10/2025 21:24:10 | Iniciando novo processamento, bloqueando a fila.
+15/10/2025 21:24:13 | UPLOAD: FANTASTICO_sobe_para_225_o_numero_de_casos_suspeitos_de_intoxicacao_por_metanol_no_Brasil.mp4
+15/10/2025 21:24:14 | ERRO: got an unexpected keyword argument 'verbose'
+15/10/2025 21:24:14 | Fila de processamento liberada.
+15/10/2025 21:33:22 | Iniciando novo processamento, bloqueando a fila.
+15/10/2025 21:33:23 | UPLOAD: Jornal_Nacional_Lula_da_aval_para_acabar_com_obrigatoriedade_de_autoescola_para_CNH_g1.mp4
+15/10/2025 21:33:24 | ERRO: got an unexpected keyword argument 'verbose'
+15/10/2025 21:33:24 | Fila de processamento liberada.
+15/10/2025 21:38:45 | Iniciando novo processamento, bloqueando a fila.
+15/10/2025 21:38:50 | UPLOAD: FANTASTICO_sobe_para_225_o_numero_de_casos_suspeitos_de_intoxicacao_por_metanol_no_Brasil.mp4
+15/10/2025 21:38:51 | ERRO: got an unexpected keyword argument 'verbose'
+15/10/2025 21:38:51 | Fila de processamento liberada.
+15/10/2025 22:35:12 | Iniciando novo processamento, bloqueando a fila.
+15/10/2025 22:35:19 | UPLOAD: FANTASTICO_sobe_para_225_o_numero_de_casos_suspeitos_de_intoxicacao_por_metanol_no_Brasil.mp4
+15/10/2025 22:35:21 | ERRO: got an unexpected keyword argument 'verbose'
+15/10/2025 22:35:21 | Fila de processamento liberada.
+15/10/2025 22:41:03 | Iniciando novo processamento, bloqueando a fila.
+15/10/2025 22:41:04 | UPLOAD: Jornal_Nacional_Lula_da_aval_para_acabar_com_obrigatoriedade_de_autoescola_para_CNH_g1.mp4
+15/10/2025 22:41:05 | ERRO: got an unexpected keyword argument 'verbose'
+15/10/2025 22:41:05 | Fila de processamento liberada.
+15/10/2025 22:41:22 | Iniciando novo processamento, bloqueando a fila.
+15/10/2025 22:41:23 | UPLOAD: Jornal_Nacional_Lula_da_aval_para_acabar_com_obrigatoriedade_de_autoescola_para_CNH_g1.mp4
+15/10/2025 22:41:24 | ERRO: got an unexpected keyword argument 'verbose'
+15/10/2025 22:41:24 | Fila de processamento liberada.
+15/10/2025 22:41:39 | Iniciando novo processamento, bloqueando a fila.
+15/10/2025 22:41:42 | UPLOAD: FANTASTICO_sobe_para_225_o_numero_de_casos_suspeitos_de_intoxicacao_por_metanol_no_Brasil.mp4
+15/10/2025 22:41:43 | ERRO: got an unexpected keyword argument 'verbose'
+15/10/2025 22:41:43 | Fila de processamento liberada.
+16/10/2025 07:34:58 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 07:35:05 | UPLOAD: FANTASTICO_sobe_para_225_o_numero_de_casos_suspeitos_de_intoxicacao_por_metanol_no_Brasil.mp4
+16/10/2025 07:35:08 | ERRO: got an unexpected keyword argument 'verbose'
+16/10/2025 07:35:08 | Fila de processamento liberada.
+16/10/2025 07:40:17 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 07:40:18 | UPLOAD: Jornal_Nacional_Lula_da_aval_para_acabar_com_obrigatoriedade_de_autoescola_para_CNH_g1.mp4
+16/10/2025 07:40:25 | ERRO: got an unexpected keyword argument 'verbose'
+16/10/2025 07:40:25 | Fila de processamento liberada.
+16/10/2025 07:46:47 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 07:46:52 | UPLOAD: FANTASTICO_sobe_para_225_o_numero_de_casos_suspeitos_de_intoxicacao_por_metanol_no_Brasil.mp4
+16/10/2025 07:46:59 | ⏱️ Extração de áudio: 7.39s
+16/10/2025 07:48:15 | Sentimento: NEUTRO (0.50)
+16/10/2025 07:51:53 | ⏱️ Transcrição (Whisper base): 300.79s
+16/10/2025 07:51:53 | Modo de corte: AUTOMÁTICO (IA)
+16/10/2025 07:51:53 | ⏱️ Análise de trechos: 300.80s
+16/10/2025 07:51:53 | Erro ao renderizar clipe 1: 'VideoFileClip' object has no attribute 'subclip'
+16/10/2025 07:51:53 | Erro ao renderizar clipe 2: 'VideoFileClip' object has no attribute 'subclip'
+16/10/2025 07:51:53 | Erro ao renderizar clipe 3: 'VideoFileClip' object has no attribute 'subclip'
+16/10/2025 07:51:53 | ERRO: Nenhum clipe foi gerado com sucesso. Verifique o vídeo e as configurações.
+16/10/2025 07:51:53 | Fila de processamento liberada.
+16/10/2025 08:15:42 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 08:15:47 | UPLOAD: FANTASTICO_sobe_para_225_o_numero_de_casos_suspeitos_de_intoxicacao_por_metanol_no_Brasil.mp4
+16/10/2025 08:15:55 | ⏱️ Extração de áudio: 7.37s
+16/10/2025 08:16:07 | Sentimento: NEUTRO (0.50)
+16/10/2025 08:19:55 | ⏱️ Transcrição (Whisper base): 247.77s
+16/10/2025 08:19:55 | Modo de corte: AUTOMÁTICO (IA)
+16/10/2025 08:19:55 | ⏱️ Análise de trechos: 247.77s
+16/10/2025 08:19:56 | Erro ao renderizar clipe 1: 'VideoFileClip' object has no attribute 'fx'
+16/10/2025 08:19:56 | Erro ao renderizar clipe 2: 'VideoFileClip' object has no attribute 'fx'
+16/10/2025 08:19:57 | Erro ao renderizar clipe 3: 'VideoFileClip' object has no attribute 'fx'
+16/10/2025 08:19:57 | ERRO: Nenhum clipe foi gerado com sucesso. Verifique o vídeo e as configurações.
+16/10/2025 08:19:57 | Fila de processamento liberada.
+16/10/2025 08:29:23 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 08:29:24 | UPLOAD: Jornal_Nacional_Lula_da_aval_para_acabar_com_obrigatoriedade_de_autoescola_para_CNH_g1.mp4
+16/10/2025 08:29:24 | ERRO: 'logs'
+16/10/2025 08:29:24 | Fila de processamento liberada.
+16/10/2025 08:38:17 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 08:38:18 | UPLOAD: Jornal_Nacional_Lula_da_aval_para_acabar_com_obrigatoriedade_de_autoescola_para_CNH_g1.mp4
+16/10/2025 08:38:18 | ERRO: 'logs'
+16/10/2025 08:38:18 | Fila de processamento liberada.
+16/10/2025 10:24:24 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 10:24:34 | UPLOAD: FANTASTICO_sobe_para_225_o_numero_de_casos_suspeitos_de_intoxicacao_por_metanol_no_Brasil.mp4
+16/10/2025 10:24:34 | ERRO: 'logs'
+16/10/2025 10:24:34 | Fila de processamento liberada.
+16/10/2025 10:34:26 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 10:34:27 | UPLOAD: Jornal_Nacional_Lula_da_aval_para_acabar_com_obrigatoriedade_de_autoescola_para_CNH_g1.mp4
+16/10/2025 10:34:27 | ERRO: 'logs'
+16/10/2025 10:34:27 | Fila de processamento liberada.
+16/10/2025 10:39:42 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 10:39:42 | UPLOAD: Jornal_Nacional_Lula_da_aval_para_acabar_com_obrigatoriedade_de_autoescola_para_CNH_g1.mp4
+16/10/2025 10:39:42 | ERRO: 'logs'
+16/10/2025 10:39:42 | Fila de processamento liberada.
+16/10/2025 10:47:20 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 10:47:20 | UPLOAD: Jornal_Nacional_Lula_da_aval_para_acabar_com_obrigatoriedade_de_autoescola_para_CNH_g1.mp4
+16/10/2025 10:47:20 | ERRO: 'logs'
+16/10/2025 10:47:20 | Fila de processamento liberada.
+16/10/2025 10:48:44 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 10:48:49 | UPLOAD: FANTASTICO_sobe_para_225_o_numero_de_casos_suspeitos_de_intoxicacao_por_metanol_no_Brasil.mp4
+16/10/2025 10:48:49 | ERRO: 'logs'
+16/10/2025 10:48:49 | Fila de processamento liberada.
+16/10/2025 11:16:04 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 11:16:08 | UPLOAD: FANTASTICO_sobe_para_225_o_numero_de_casos_suspeitos_de_intoxicacao_por_metanol_no_Brasil.mp4
+16/10/2025 11:16:16 | ⏱️ Extração de áudio: 7.88s
+16/10/2025 11:16:37 | Sentimento: NEUTRO (0.50)
+16/10/2025 11:20:41 | ⏱️ Transcrição (Whisper base): 272.54s
+16/10/2025 11:20:41 | Modo de corte: AUTOMÁTICO (IA)
+16/10/2025 11:20:41 | ⏱️ Análise de trechos: 272.54s
+16/10/2025 11:20:42 | Erro ao renderizar clipe 1: 'VideoFileClip' object has no attribute 'fx'
+16/10/2025 11:20:43 | Erro ao renderizar clipe 2: 'VideoFileClip' object has no attribute 'fx'
+16/10/2025 11:20:43 | Erro ao renderizar clipe 3: 'VideoFileClip' object has no attribute 'fx'
+16/10/2025 11:20:43 | ERRO: Nenhum clipe foi gerado com sucesso. Verifique o vídeo e as configurações.
+16/10/2025 11:20:43 | Fila de processamento liberada.
+16/10/2025 11:32:11 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 11:32:16 | UPLOAD: FANTASTICO_sobe_para_225_o_numero_de_casos_suspeitos_de_intoxicacao_por_metanol_no_Brasil.mp4
+16/10/2025 11:32:23 | ⏱️ Extração de áudio: 7.08s
+16/10/2025 12:12:49 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 12:12:50 | UPLOAD: fantastico-sobe-para-225-o-numero-de-casos-suspeitos-de-intoxicacao-por-metanol-no-brasil.mp4
+16/10/2025 12:12:50 | ERRO: module 'moviepy' has no attribute 'VideoFileClip'
+16/10/2025 12:12:50 | Fila de processamento liberada.
+16/10/2025 12:22:10 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 12:22:12 | UPLOAD: fantastico-sobe-para-225-o-numero-de-casos-suspeitos-de-intoxicacao-por-metanol-no-brasil.mp4
+16/10/2025 12:22:34 | ⏱️ Extração de áudio: 22.22s
+16/10/2025 12:26:22 | Sentimento: NEUTRO (0.50)
+16/10/2025 12:26:22 | ERRO: [WinError 2] O sistema não pode encontrar o arquivo especificado
+16/10/2025 12:26:23 | Fila de processamento liberada.
+16/10/2025 12:48:09 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 12:48:11 | UPLOAD: fantastico-sobe-para-225-o-numero-de-casos-suspeitos-de-intoxicacao-por-metanol-no-brasil.mp4
+16/10/2025 12:48:27 | ⏱️ Extração de áudio: 15.99s
+16/10/2025 12:48:41 | Sentimento: NEUTRO (0.50)
+16/10/2025 12:51:12 | ⏱️ Transcrição (Whisper base): 181.52s
+16/10/2025 12:51:12 | Modo de corte: AUTOMÁTICO (IA)
+16/10/2025 12:51:12 | ⏱️ Análise de trechos: 181.53s
+16/10/2025 12:51:12 | Erro ao renderizar clipe 1: 'VideoFileClip' object has no attribute 'subclipped'
+16/10/2025 12:51:12 | Erro ao renderizar clipe 2: 'VideoFileClip' object has no attribute 'subclipped'
+16/10/2025 12:51:12 | Erro ao renderizar clipe 3: 'VideoFileClip' object has no attribute 'subclipped'
+16/10/2025 12:51:12 | ERRO: Nenhum clipe foi gerado com sucesso. Verifique o vídeo e as configurações.
+16/10/2025 12:51:12 | Fila de processamento liberada.
+16/10/2025 12:55:41 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 12:55:42 | UPLOAD: fantastico-sobe-para-225-o-numero-de-casos-suspeitos-de-intoxicacao-por-metanol-no-brasil.mp4
+16/10/2025 12:55:42 | Carregando modelo Whisper: tiny
+16/10/2025 12:55:48 | ✓ Modelo tiny carregado com sucesso
+16/10/2025 12:55:55 | ⏱️ Extração de áudio: 7.13s
+16/10/2025 12:56:16 | Sentimento: NEUTRO (0.50)
+16/10/2025 12:58:31 | ⏱️ Transcrição (Whisper tiny): 163.71s
+16/10/2025 12:58:31 | Modo de corte: AUTOMÁTICO (IA)
+16/10/2025 12:58:31 | ⏱️ Análise de trechos: 163.72s
+16/10/2025 12:58:31 | Detectando rostos - Video: 640x360, Crop: 640px
+16/10/2025 12:58:36 | Erro ao renderizar clipe 1: MoviePy Error: creation of None failed because of the following error:
+
+[WinError 2] O sistema não pode encontrar o arquivo especificado.
+
+.This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
+16/10/2025 12:58:36 | ERRO: Nenhum clipe foi gerado com sucesso. Verifique o vídeo e as configurações.
+16/10/2025 12:58:36 | Fila de processamento liberada.
+16/10/2025 13:03:20 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 13:03:21 | UPLOAD: fantastico-sobe-para-225-o-numero-de-casos-suspeitos-de-intoxicacao-por-metanol-no-brasil.mp4
+16/10/2025 13:03:21 | Carregando modelo Whisper: tiny
+16/10/2025 13:03:23 | ✓ Modelo tiny carregado com sucesso
+16/10/2025 13:03:32 | ⏱️ Extração de áudio: 8.71s
+16/10/2025 13:03:48 | Sentimento: NEUTRO (0.50)
+16/10/2025 13:05:23 | ⏱️ Transcrição (Whisper tiny): 120.48s
+16/10/2025 13:05:23 | Modo de corte: AUTOMÁTICO (IA)
+16/10/2025 13:05:23 | ⏱️ Análise de trechos: 120.49s
+16/10/2025 13:05:23 | Detectando rostos - Video: 640x360, Crop: 640px
+16/10/2025 13:08:41 | ⏱️ Renderização clipe 1: 197.95s
+16/10/2025 13:08:41 | Fila de processamento liberada.
+16/10/2025 13:29:20 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 13:29:21 | UPLOAD: fantastico-sobe-para-225-o-numero-de-casos-suspeitos-de-intoxicacao-por-metanol-no-brasil.mp4
+16/10/2025 13:29:32 | ⏱️ Extração de áudio: 11.48s
+16/10/2025 13:30:00 | Sentimento: NEUTRO (0.50)
+16/10/2025 13:35:45 | ⏱️ Transcrição (Whisper base): 383.83s
+16/10/2025 13:35:45 | Modo de corte: AUTOMÁTICO (IA)
+16/10/2025 13:35:45 | ⏱️ Análise de trechos: 383.85s
+16/10/2025 13:35:45 | Detectando rostos - Video: 640x360, Crop: 640px
+16/10/2025 13:42:52 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 13:42:53 | UPLOAD: fantastico-sobe-para-225-o-numero-de-casos-suspeitos-de-intoxicacao-por-metanol-no-brasil.mp4
+16/10/2025 13:43:04 | ⏱️ Extração de áudio: 11.71s
+16/10/2025 13:43:25 | Sentimento: NEUTRO (0.50)
+16/10/2025 14:05:40 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 14:05:40 | UPLOAD: fantastico-sobe-para-225-o-numero-de-casos-suspeitos-de-intoxicacao-por-metanol-no-brasil.mp4
+16/10/2025 14:05:49 | ⏱️ Extração de áudio: 8.92s
+16/10/2025 14:06:02 | Sentimento: NEUTRO (0.50)
+16/10/2025 14:11:17 | ⏱️ Transcrição (Whisper base): 336.77s
+16/10/2025 14:11:17 | Modo de corte: AUTOMÁTICO (IA)
+16/10/2025 14:11:17 | ⏱️ Análise de trechos: 336.78s
+16/10/2025 14:11:17 | Detectando rostos - Video: 640x360, Crop: 640px
+16/10/2025 14:15:28 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 14:15:29 | UPLOAD: fantastico-sobe-para-225-o-numero-de-casos-suspeitos-de-intoxicacao-por-metanol-no-brasil.mp4
+16/10/2025 14:15:29 | Carregando modelo Whisper: tiny
+16/10/2025 14:15:30 | ✓ Modelo tiny carregado com sucesso
+16/10/2025 14:15:37 | ⏱️ Extração de áudio: 7.23s
+16/10/2025 14:15:50 | Sentimento: NEUTRO (0.50)
+16/10/2025 14:18:17 | ⏱️ Transcrição (Whisper tiny): 166.65s
+16/10/2025 14:18:17 | Modo de corte: AUTOMÁTICO (IA)
+16/10/2025 14:18:17 | ⏱️ Análise de trechos: 166.65s
+16/10/2025 14:18:17 | Detectando rostos - Video: 640x360, Crop: 640px
+16/10/2025 14:21:21 | ⏱️ Renderização clipe 1: 183.93s
+16/10/2025 14:21:21 | Fila de processamento liberada.
+16/10/2025 14:22:37 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 14:22:38 | UPLOAD: fantastico-sobe-para-225-o-numero-de-casos-suspeitos-de-intoxicacao-por-metanol-no-brasil.mp4
+16/10/2025 14:22:45 | ⏱️ Extração de áudio: 7.29s
+16/10/2025 14:22:46 | Sentimento: NEUTRO (0.50)
+16/10/2025 14:25:16 | ⏱️ Transcrição (Whisper tiny): 158.76s
+16/10/2025 14:25:16 | Modo de corte: AUTOMÁTICO (IA)
+16/10/2025 14:25:16 | ⏱️ Análise de trechos: 158.77s
+16/10/2025 14:25:16 | Detectando rostos - Video: 640x360, Crop: 640px
+16/10/2025 14:28:46 | ⏱️ Renderização clipe 1: 209.91s
+16/10/2025 14:28:46 | Fila de processamento liberada.

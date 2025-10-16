@@ -1,0 +1,16 @@
+# Framework Web
+Flask
+
+# Processamento de Mídia e Visão Computacional
+moviepy
+opencv-python
+mediapipe
+qrcode
+Pillow
+
+# Inteligência Artificial e Análise de Áudio
+openai-whisper
+torch
+librosa
+numpy
+soundfile
