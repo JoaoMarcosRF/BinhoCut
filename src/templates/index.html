@@ -1,425 +1,997 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Globinho AI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BinhoCut</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; background: #0D1117; color: #fff; min-height: 100vh; }
-        .header { background: linear-gradient(135deg, #06A4E2, #90C43D); padding: 2rem; }
-        .logo-circle { width: 80px; height: 80px; background: #fff; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 1rem; }
-        .brand h1 { font-size: 3rem; color: #fff; display: inline; }
-        .container { max-width: 1400px; margin: 2rem auto; padding: 0 2rem; }
-        .nav-tabs { display: flex; gap: 1rem; border-bottom: 2px solid #30363D; flex-wrap: wrap; }
-        .nav-tab { padding: 1rem 2rem; background: transparent; border: none; color: rgba(255,255,255,0.6); font-size: 1rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; }
-        .nav-tab:hover { color: #06A4E2; }
-        .nav-tab.active { color: #06A4E2; border-bottom-color: #06A4E2; }
-        .tab-content { display: none; animation: fadeIn 0.3s; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .card { background: #161B22; border-radius: 16px; border: 1px solid #30363D; padding: 2.5rem; margin: 2rem 0; }
-        .card-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: #06A4E2; }
-        
-        /* Configurações Iniciais */
-        .settings-panel { background: rgba(255,255,255,0.03); padding: 2rem; border-radius: 12px; margin: 2rem 0; }
-        .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-        .setting-item { display: flex; flex-direction: column; gap: 0.5rem; }
-        .setting-item label { font-size: 0.9rem; color: rgba(255,255,255,0.8); font-weight: 600; }
-        .setting-item input, .setting-item select { padding: 0.8rem; border-radius: 8px; border: 1px solid #30363D; background: #0D1117; color: #fff; font-size: 1rem; }
-        .checkbox-wrapper { display: flex; align-items: center; gap: 0.8rem; }
-        .checkbox-wrapper input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
-        
-        /* Upload de Marca d'água */
-        .watermark-upload { border: 2px dashed rgba(255,255,255,0.3); border-radius: 8px; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 0.3s; }
-        .watermark-upload:hover { border-color: #90C43D; background: rgba(144,196,61,0.05); }
-        .watermark-preview { max-width: 150px; max-height: 150px; margin: 1rem auto; display: none; border-radius: 8px; }
-        
-        .drop-area { border: 3px dashed #06A4E2; border-radius: 16px; padding: 4rem 2rem; text-align: center; cursor: pointer; transition: all 0.3s; }
-        .drop-area:hover { background: rgba(6,164,226,0.05); border-color: #90C43D; }
-        .drop-area.drag-over { background: rgba(6,164,226,0.1); border-color: #90C43D; transform: scale(1.02); }
-        .upload-btn { background: linear-gradient(90deg, #06A4E2, #90C43D); color: #fff; border: none; padding: 1.2rem 3rem; font-size: 1.1rem; font-weight: 700; border-radius: 50px; cursor: pointer; margin-top: 1rem; transition: transform 0.2s; }
-        .upload-btn:hover { transform: scale(1.05); }
-        
-        /* Preview de Vídeo */
-        .video-preview-container { margin: 2rem 0; }
-        .video-player { width: 100%; max-width: 800px; margin: 0 auto; display: block; border-radius: 12px; background: #000; }
-        
-        /* Timeline de Corte */
-        .timeline-container { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 12px; margin: 2rem 0; }
-        .timeline-controls { display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
-        .timeline-canvas-wrapper { position: relative; width: 100%; height: 120px; background: #000; border-radius: 8px; overflow: hidden; }
-        .timeline-canvas { width: 100%; height: 100%; }
-        .timeline-marker { position: absolute; top: 0; bottom: 0; width: 3px; cursor: ew-resize; z-index: 10; }
-        .timeline-marker.start { background: #90C43D; left: 0; }
-        .timeline-marker.end { background: #06A4E2; right: 0; }
-        .timeline-selection { position: absolute; top: 0; bottom: 0; background: rgba(144, 196, 61, 0.3); border: 2px solid #90C43D; pointer-events: none; }
-        .time-display { display: flex; justify-content: space-between; margin-top: 0.5rem; font-size: 0.9rem; color: rgba(255,255,255,0.7); }
-        
-        /* Modo de Corte */
-        .mode-selector { display: flex; gap: 1rem; margin: 2rem 0; }
-        .mode-btn { flex: 1; padding: 1.5rem; border: 2px solid #30363D; border-radius: 12px; background: rgba(255,255,255,0.03); cursor: pointer; transition: all 0.3s; text-align: center; }
-        .mode-btn:hover { border-color: #06A4E2; background: rgba(6,164,226,0.1); }
-        .mode-btn.active { border-color: #90C43D; background: rgba(144,196,61,0.1); }
-        .mode-btn h3 { color: #06A4E2; margin-bottom: 0.5rem; }
-        .mode-btn p { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
-        
-        /* Log em Tempo Real */
-        .log-container { background: #000; border: 1px solid #30363D; border-radius: 8px; padding: 1rem; max-height: 300px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 0.85rem; margin: 1rem 0; }
-        .log-entry { padding: 0.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .log-time { color: #90C43D; margin-right: 0.5rem; }
-        .log-message { color: rgba(255,255,255,0.9); }
-        
-        .progress-bar { width: 100%; height: 14px; background: #30363D; border-radius: 10px; margin: 1rem 0; overflow: hidden; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, #06A4E2, #90C43D); border-radius: 10px; transition: width 0.5s; }
-        .progress-percent { text-align: center; font-size: 2.5rem; font-weight: 800; background: linear-gradient(90deg, #06A4E2, #90C43D);  -webkit-text-fill-color: transparent; }
-        .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; }
-        .result-card { background: linear-gradient(135deg, rgba(6,164,226,0.1), rgba(144,196,61,0.1)); border: 1px solid #06A4E2; border-radius: 12px; padding: 1.5rem; }
-        .result-title { font-size: 1.2rem; font-weight: 700; color: #06A4E2; margin-bottom: 1rem; }
-        .video-preview { width: 100%; max-width: 300px; border-radius: 8px; margin: 1rem auto; display: block; }
-        .btn { padding: 0.8rem 1.5rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; margin: 0.3rem; transition: all 0.2s; }
-        .btn:hover { transform: translateY(-2px); }
-        .btn-primary { background: #90C43D; color: #fff; }
-        .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; }
-        .download-all-btn { width: 100%; background: linear-gradient(90deg, #06A4E2, #90C43D); color: #fff; border: none; padding: 1.2rem; border-radius: 12px; font-size: 1.2rem; font-weight: 700; cursor: pointer; margin-top: 1.5rem; transition: transform 0.2s; }
-        .download-all-btn:hover { transform: scale(1.02); }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
-        .stat-card { background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; text-align: center; transition: all 0.3s; }
-        .stat-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-5px); }
-        .stat-value { font-size: 2.5rem; font-weight: 800; color: #90C43D; }
-        .stat-label { font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-top: 0.5rem; }
-        .hidden { display: none !important; }
-        .chart-container { background: rgba(255,255,255,0.03); padding: 2rem; border-radius: 12px; margin: 1rem 0; min-height: 300px; }
-        .history-item { background: rgba(255,255,255,0.05); padding: 1.5rem; margin: 1rem 0; border-radius: 12px; border-left: 4px solid #90C43D; }
-        .info-badge { display: inline-block; background: rgba(6,164,226,0.2); color: #06A4E2; padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.85rem; margin-left: 0.5rem; font-weight: 600; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+        background: #0d1117;
+        color: #fff;
+        min-height: 100vh;
+      }
+      .header {
+        background: linear-gradient(135deg, #06a4e2, #90c43d);
+        padding: 2rem;
+      }
+      .logo-circle {
+        width: 80px;
+        height: 80px;
+        background: #fff;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+      }
+      .brand h1 {
+        font-size: 3rem;
+        color: #fff;
+        display: inline;
+      }
+      .container {
+        max-width: 1400px;
+        margin: 2rem auto;
+        padding: 0 2rem;
+      }
+      .nav-tabs {
+        display: flex;
+        gap: 1rem;
+        border-bottom: 2px solid #30363d;
+        flex-wrap: wrap;
+      }
+      .nav-tab {
+        padding: 1rem 2rem;
+        background: transparent;
+        border: none;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        border-bottom: 3px solid transparent;
+        transition: all 0.3s;
+      }
+      .nav-tab:hover {
+        color: #06a4e2;
+      }
+      .nav-tab.active {
+        color: #06a4e2;
+        border-bottom-color: #06a4e2;
+      }
+      .tab-content {
+        display: none;
+        animation: fadeIn 0.3s;
+      }
+      .tab-content.active {
+        display: block;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .card {
+        background: #161b22;
+        border-radius: 16px;
+        border: 1px solid #30363d;
+        padding: 2.5rem;
+        margin: 2rem 0;
+      }
+      .card-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: #06a4e2;
+      }
+
+      /* Configurações Iniciais */
+      .settings-panel {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 2rem;
+        border-radius: 12px;
+        margin: 2rem 0;
+      }
+      .settings-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+      .setting-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .setting-item label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 600;
+      }
+      .setting-item input,
+      .setting-item select {
+        padding: 0.8rem;
+        border-radius: 8px;
+        border: 1px solid #30363d;
+        background: #0d1117;
+        color: #fff;
+        font-size: 1rem;
+      }
+      .checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .checkbox-wrapper input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
+
+      /* Upload de Marca d'água */
+      .watermark-upload {
+        border: 2px dashed rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .watermark-upload:hover {
+        border-color: #90c43d;
+        background: rgba(144, 196, 61, 0.05);
+      }
+      .watermark-preview {
+        max-width: 150px;
+        max-height: 150px;
+        margin: 1rem auto;
+        display: none;
+        border-radius: 8px;
+      }
+
+      .drop-area {
+        border: 3px dashed #06a4e2;
+        border-radius: 16px;
+        padding: 4rem 2rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .drop-area:hover {
+        background: rgba(6, 164, 226, 0.05);
+        border-color: #90c43d;
+      }
+      .drop-area.drag-over {
+        background: rgba(6, 164, 226, 0.1);
+        border-color: #90c43d;
+        transform: scale(1.02);
+      }
+      .upload-btn {
+        background: linear-gradient(90deg, #06a4e2, #90c43d);
+        color: #fff;
+        border: none;
+        padding: 1.2rem 3rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        border-radius: 50px;
+        cursor: pointer;
+        margin-top: 1rem;
+        transition: transform 0.2s;
+      }
+      .upload-btn:hover {
+        transform: scale(1.05);
+      }
+
+      /* Preview de Vídeo */
+      .video-preview-container {
+        margin: 2rem 0;
+      }
+      .video-player {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        display: block;
+        border-radius: 12px;
+        background: #000;
+      }
+
+      /* Timeline de Corte */
+      .timeline-container {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 2rem;
+        border-radius: 12px;
+        margin: 2rem 0;
+      }
+      .timeline-controls {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+      }
+      .timeline-canvas-wrapper {
+        position: relative;
+        width: 100%;
+        height: 120px;
+        background: #000;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .timeline-canvas {
+        width: 100%;
+        height: 100%;
+      }
+      .timeline-marker {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        cursor: ew-resize;
+        z-index: 10;
+      }
+      .timeline-marker.start {
+        background: #90c43d;
+        left: 0;
+      }
+      .timeline-marker.end {
+        background: #06a4e2;
+        right: 0;
+      }
+      .timeline-selection {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        background: rgba(144, 196, 61, 0.3);
+        border: 2px solid #90c43d;
+        pointer-events: none;
+      }
+      .time-display {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* Modo de Corte */
+      .mode-selector {
+        display: flex;
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+      .mode-btn {
+        flex: 1;
+        padding: 1.5rem;
+        border: 2px solid #30363d;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.03);
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: center;
+      }
+      .mode-btn:hover {
+        border-color: #06a4e2;
+        background: rgba(6, 164, 226, 0.1);
+      }
+      .mode-btn.active {
+        border-color: #90c43d;
+        background: rgba(144, 196, 61, 0.1);
+      }
+      .mode-btn h3 {
+        color: #06a4e2;
+        margin-bottom: 0.5rem;
+      }
+      .mode-btn p {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* Log em Tempo Real */
+      .log-container {
+        background: #000;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        padding: 1rem;
+        max-height: 300px;
+        overflow-y: auto;
+        font-family: "Courier New", monospace;
+        font-size: 0.85rem;
+        margin: 1rem 0;
+      }
+      .log-entry {
+        padding: 0.3rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .log-time {
+        color: #90c43d;
+        margin-right: 0.5rem;
+      }
+      .log-message {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 14px;
+        background: #30363d;
+        border-radius: 10px;
+        margin: 1rem 0;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #06a4e2, #90c43d);
+        border-radius: 10px;
+        transition: width 0.5s;
+      }
+      .progress-percent {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, #06a4e2, #90c43d);
+        -webkit-text-fill-color: transparent;
+      }
+      .results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 1.5rem;
+      }
+      .result-card {
+        background: linear-gradient(
+          135deg,
+          rgba(6, 164, 226, 0.1),
+          rgba(144, 196, 61, 0.1)
+        );
+        border: 1px solid #06a4e2;
+        border-radius: 12px;
+        padding: 1.5rem;
+      }
+      .result-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #06a4e2;
+        margin-bottom: 1rem;
+      }
+      .video-preview {
+        width: 100%;
+        max-width: 300px;
+        border-radius: 8px;
+        margin: 1rem auto;
+        display: block;
+      }
+      .btn {
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        margin: 0.3rem;
+        transition: all 0.2s;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+      .btn-primary {
+        background: #90c43d;
+        color: #fff;
+      }
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+      .download-all-btn {
+        width: 100%;
+        background: linear-gradient(90deg, #06a4e2, #90c43d);
+        color: #fff;
+        border: none;
+        padding: 1.2rem;
+        border-radius: 12px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 1.5rem;
+        transition: transform 0.2s;
+      }
+      .download-all-btn:hover {
+        transform: scale(1.02);
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+      .stat-card {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        border-radius: 12px;
+        text-align: center;
+        transition: all 0.3s;
+      }
+      .stat-card:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-5px);
+      }
+      .stat-value {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #90c43d;
+      }
+      .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 0.5rem;
+      }
+      .hidden {
+        display: none !important;
+      }
+      .chart-container {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 2rem;
+        border-radius: 12px;
+        margin: 1rem 0;
+        min-height: 300px;
+      }
+      .history-item {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border-radius: 12px;
+        border-left: 4px solid #90c43d;
+      }
+      .info-badge {
+        display: inline-block;
+        background: rgba(6, 164, 226, 0.2);
+        color: #06a4e2;
+        padding: 0.3rem 0.8rem;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        margin-left: 0.5rem;
+        font-weight: 600;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="header">
-        <div class="logo-circle">
-            <svg viewBox="0 0 102 102">
-                <path d="M51 102C79.1665 102 102 79.1665 102 51C102 22.8335 79.1665 0 51 0C22.8335 0 0 22.8335 0 51C0 79.1665 22.8335 102 51 102ZM38.25 76.5C44.4239 76.5 49.4355 72.8833 51.51 68.085C53.5845 72.8833 58.5961 76.5 64.77 76.5C72.3179 76.5 78.54 70.2779 78.54 62.73C78.54 55.1821 72.3179 48.96 64.77 48.96C61.4114 48.96 58.3835 50.2118 56.1 52.2862V25.5H46.92V52.2862C44.6365 50.2118 41.6086 48.96 38.25 48.96C30.7021 48.96 24.48 55.1821 24.48 62.73C24.48 70.2779 30.7021 76.5 38.25 76.5Z" fill="#06A4E2"/>
-            </svg>
-        </div>
-        <div class="brand"><h1>GLOBINHO AI</h1></div>
+      <div class="logo-circle">
+        <svg viewBox="0 0 102 102">
+          <path
+            d="M51 102C79.1665 102 102 79.1665 102 51C102 22.8335 79.1665 0 51 0C22.8335 0 0 22.8335 0 51C0 79.1665 22.8335 102 51 102ZM38.25 76.5C44.4239 76.5 49.4355 72.8833 51.51 68.085C53.5845 72.8833 58.5961 76.5 64.77 76.5C72.3179 76.5 78.54 70.2779 78.54 62.73C78.54 55.1821 72.3179 48.96 64.77 48.96C61.4114 48.96 58.3835 50.2118 56.1 52.2862V25.5H46.92V52.2862C44.6365 50.2118 41.6086 48.96 38.25 48.96C30.7021 48.96 24.48 55.1821 24.48 62.73C24.48 70.2779 30.7021 76.5 38.25 76.5Z"
+            fill="#06A4E2"
+          />
+        </svg>
+      </div>
+      <div class="brand"><h1>BINHO CUT</h1></div>
     </div>
 
     <div class="container">
-        <div class="nav-tabs">
-            <button class="nav-tab active" data-tab="upload">📤 Processar Vídeo</button>
-            <button class="nav-tab" data-tab="history">📚 Histórico</button>
-            <button class="nav-tab" data-tab="dashboard">📊 Dashboard Analytics</button>
-        </div>
+      <div class="nav-tabs">
+        <button class="nav-tab active" data-tab="upload">
+          📤 Processar Vídeo
+        </button>
+        <button class="nav-tab" data-tab="history">📚 Histórico</button>
+        <button class="nav-tab" data-tab="dashboard">
+          📊 Dashboard Analytics
+        </button>
+      </div>
 
-        <div class="tab-content active" id="tab-upload">
-            <!-- Configurações Iniciais -->
-            <div class="card" id="settings-card">
-                <h2 class="card-title">⚙️ Configurações de Processamento</h2>
-                <div class="settings-panel">
-                    <div class="settings-grid">
-                        <div class="setting-item">
-                            <label>🤖 Modelo de IA (Whisper)</label>
-                            <select id="whisper-model">
-                                <option value="tiny">Tiny - Rápido (menor precisão)</option>
-                                <option value="base" selected>Base - Balanceado (recomendado)</option>
-                                <option value="small">Small - Preciso (mais lento)</option>
-                                <option value="medium">Medium - Muito Preciso</option>
-                            </select>
-                        </div>
-                        
-                        <div class="setting-item">
-                            <label>🎬 Quantidade de Clipes</label>
-                            <input type="number" id="num-clips" min="1" max="20" value="3">
-                        </div>
-                        
-                        <div class="setting-item">
-                            <label>⚡ Velocidade do Vídeo</label>
-                            <select id="video-speed">
-                                <option value="0.75">0.75x (Mais Lento)</option>
-                                <option value="1.0" selected>1.0x (Normal)</option>
-                                <option value="1.25">1.25x (Rápido)</option>
-                                <option value="1.5">1.5x (Muito Rápido)</option>
-                            </select>
-                        </div>
-                        
-                        <div class="setting-item">
-                            <label class="checkbox-wrapper">
-                                <input type="checkbox" id="with-subtitles" checked>
-                                <span>📝 Adicionar Legendas</span>
-                            </label>
-                        </div>
-                        
-                        <div class="setting-item">
-                            <label>🖋️ Fonte das Legendas</label>
-                            <select id="subtitle-font">
-                                <option value="Courier-New-Bold" selected>Courier New Bold</option>
-                                <option value="Arial-Bold">Arial Bold</option>
-                                <option value="Impact">Impact</option>
-                                <option value="Comic-Sans-MS-Bold">Comic Sans MS Bold</option>
-                            </select>
-                        </div>
-                        
-                        <div class="setting-item">
-                            <label>📏 Tamanho da Fonte</label>
-                            <input type="number" id="subtitle-size" min="50" max="120" value="70">
-                        </div>
-                    </div>
-                    
-                    <!-- Upload de Marca d'água -->
-                    <div class="setting-item" style="margin-top: 1.5rem;">
-                        <label>🖼️ Marca d'água (opcional)</label>
-                        <div class="watermark-upload" id="watermark-upload">
-                            <p style="font-size:1rem;font-weight:600">📁 Clique para adicionar marca d'água</p>
-                            <p style="color:rgba(255,255,255,0.5);margin-top:0.5rem;font-size:0.85rem">
-                                PNG recomendado (com transparência)
-                            </p>
-                        </div>
-                        <img id="watermark-preview" class="watermark-preview" alt="Preview da marca d'água">
-                        <button id="remove-watermark" class="btn btn-secondary hidden" style="margin-top: 0.5rem;">🗑️ Remover Marca d'água</button>
-                    </div>
-                    
-                    <!-- Botões de Salvar Configurações -->
-                    <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-                        <button class="btn btn-primary" onclick="savePreferences('current')" style="flex: 1;">
-                            💾 Salvar para Este Vídeo
-                        </button>
-                        <button class="btn btn-primary" onclick="savePreferences('all')" style="flex: 1;">
-                            💾 Salvar para Todos os Próximos
-                        </button>
-                    </div>
-                </div>
+      <div class="tab-content active" id="tab-upload">
+        <!-- Configurações Iniciais -->
+        <div class="card" id="settings-card">
+          <h2 class="card-title">⚙️ Configurações de Processamento</h2>
+          <div class="settings-panel">
+            <div class="settings-grid">
+              <div class="setting-item">
+                <label>🤖 Modelo de IA (Whisper)</label>
+                <select id="whisper-model">
+                  <option value="tiny">Tiny - Rápido (menor precisão)</option>
+                  <option value="base" selected>
+                    Base - Balanceado (recomendado)
+                  </option>
+                  <option value="small">Small - Preciso (mais lento)</option>
+                  <option value="medium">Medium - Muito Preciso</option>
+                </select>
+              </div>
+
+              <div class="setting-item">
+                <label>🎬 Quantidade de Clipes</label>
+                <input
+                  type="number"
+                  id="num-clips"
+                  min="1"
+                  max="20"
+                  value="3"
+                />
+              </div>
+
+              <div class="setting-item">
+                <label>⚡ Velocidade do Vídeo</label>
+                <select id="video-speed">
+                  <option value="0.75">0.75x (Mais Lento)</option>
+                  <option value="1.0" selected>1.0x (Normal)</option>
+                  <option value="1.25">1.25x (Rápido)</option>
+                  <option value="1.5">1.5x (Muito Rápido)</option>
+                </select>
+              </div>
+
+              <div class="setting-item">
+                <label class="checkbox-wrapper">
+                  <input type="checkbox" id="with-subtitles" checked />
+                  <span>📝 Adicionar Legendas</span>
+                </label>
+              </div>
+
+              <div class="setting-item">
+                <label>🖋️ Fonte das Legendas</label>
+                <select id="subtitle-font">
+                  <option value="Courier-New-Bold" selected>
+                    Courier New Bold
+                  </option>
+                  <option value="Arial-Bold">Arial Bold</option>
+                  <option value="Impact">Impact</option>
+                  <option value="Comic-Sans-MS-Bold">Comic Sans MS Bold</option>
+                </select>
+              </div>
+
+              <div class="setting-item">
+                <label>📏 Tamanho da Fonte</label>
+                <input
+                  type="number"
+                  id="subtitle-size"
+                  min="50"
+                  max="120"
+                  value="70"
+                />
+              </div>
             </div>
 
-            <!-- Upload Inicial -->
-            <div class="card" id="upload-view">
-                <h2 class="card-title">Enviar Vídeo para Processamento</h2>
-                <div class="drop-area" id="drop-area">
-                    <p style="font-size:1.3rem;font-weight:600">🎬 Arraste seu vídeo aqui</p>
-                    <p style="color:rgba(255,255,255,0.6);margin:1rem 0">ou</p>
-                    <button class="upload-btn" type="button">Selecionar Vídeo</button>
-                    <p style="color:rgba(255,255,255,0.5);margin-top:1rem;font-size:0.9rem">
-                        Formatos aceitos: MP4, MOV, AVI | Máx: 5GB
-                    </p>
-                </div>
-            </div>
-
-            <!-- Preview e Seleção de Modo -->
-            <div class="card hidden" id="preview-view">
-                <h2 class="card-title">🎬 Preview do Vídeo</h2>
-                <div class="video-preview-container">
-                    <video id="video-preview" class="video-player" controls></video>
-                </div>
-                
-                <h3 style="color: #90C43D; margin-top: 2rem;">Escolha o Modo de Processamento</h3>
-                <div class="mode-selector">
-                    <div class="mode-btn active" id="mode-auto" onclick="selectMode('auto')">
-                        <h3>🤖 Modo Automático</h3>
-                        <p>A IA analisa o vídeo e seleciona os melhores momentos automaticamente usando análise de sentimento e detecção de palavras-chave.</p>
-                    </div>
-                    <div class="mode-btn" id="mode-manual" onclick="selectMode('manual')">
-                        <h3>✂️ Modo Manual</h3>
-                        <p>Você escolhe exatamente qual parte do vídeo processar usando a timeline interativa abaixo.</p>
-                    </div>
-                </div>
-
-                <!-- Timeline para Modo Manual -->
-               <!-- Timeline para Modo Manual -->
-<div id="timeline-section" class="hidden">
-    <div class="timeline-container">
-        <h4 style="color: #06A4E2; margin-bottom: 1rem;">⏱️ Selecione o Trecho do Vídeo</h4>
-        
-        <!-- INPUTS MANUAIS DE TEMPO -->
-        <div class="timeline-controls">
-            <div class="setting-item" style="flex: 1;">
-                <label>⏮️ Início (HH:MM:SS)</label>
-                <input type="text" id="manual-start-time" placeholder="00:00:00" 
-                       style="font-size: 1.1rem; text-align: center; font-weight: bold;">
-            </div>
-            <div class="setting-item" style="flex: 1;">
-                <label>⏭️ Fim (HH:MM:SS)</label>
-                <input type="text" id="manual-end-time" placeholder="00:00:00"
-                       style="font-size: 1.1rem; text-align: center; font-weight: bold;">
-            </div>
-            <button class="btn btn-primary" onclick="applyManualTimes()" style="align-self: flex-end;">
-                ✅ Aplicar Tempos
-            </button>
-        </div>
-        
-        <div style="margin: 1.5rem 0; padding: 1rem; background: rgba(144,196,61,0.1); border-radius: 8px; border-left: 4px solid #90C43D;">
-            <strong style="color: #90C43D;">💡 Dica:</strong> 
-            <span style="color: rgba(255,255,255,0.8);">
-                Use os botões abaixo para marcar o início/fim enquanto assiste o vídeo, 
-                OU digite os tempos manualmente acima.
-            </span>
-        </div>
-        
-        <div class="timeline-controls">
-            <button class="btn btn-primary" onclick="setMarkerFromVideo('start')">
-                📍 Marcar Início no Player
-            </button>
-            <button class="btn btn-primary" onclick="setMarkerFromVideo('end')">
-                📍 Marcar Fim no Player
-            </button>
-            <button class="btn btn-secondary" onclick="resetTimeline()">
-                🔄 Resetar Tudo
-            </button>
-        </div>
-        
-        <!-- TIMELINE VISUAL -->
-        <div class="timeline-canvas-wrapper">
-            <canvas id="timeline-canvas" class="timeline-canvas"></canvas>
-            <div id="timeline-selection" class="timeline-selection"></div>
-            <div id="marker-start" class="timeline-marker start"></div>
-            <div id="marker-end" class="timeline-marker end"></div>
-        </div>
-        
-        <!-- DISPLAY DE TEMPOS SELECIONADOS -->
-        <div style="background: rgba(6,164,226,0.1); padding: 1.5rem; border-radius: 12px; margin-top: 1rem; border: 2px solid #06A4E2;">
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center;">
-                <div>
-                    <div style="color: #90C43D; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">
-                        ⏮️ INÍCIO
-                    </div>
-                    <div id="time-start" style="font-size: 1.8rem; font-weight: 800; color: #fff;">
-                        00:00:00
-                    </div>
-                </div>
-                <div>
-                    <div style="color: #06A4E2; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">
-                        ⏱️ DURAÇÃO
-                    </div>
-                    <div id="time-duration" style="font-size: 1.8rem; font-weight: 800; color: #fff;">
-                        00:00:00
-                    </div>
-                </div>
-                <div>
-                    <div style="color: #90C43D; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">
-                        ⏭️ FIM
-                    </div>
-                    <div id="time-end" style="font-size: 1.8rem; font-weight: 800; color: #fff;">
-                        00:00:00
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-                <button class="upload-btn" style="width: 100%; margin-top: 2rem;" onclick="startProcessing()">
-                    🚀 Iniciar Processamento
-                </button>
-            </div>
-
-            <!-- Processamento -->
-            <div class="card hidden" id="processing-view">
-                <h2 class="card-title">Processando seu conteúdo...</h2>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
-                </div>
-                <div class="progress-percent" id="progress-percent">0%</div>
-                <p id="status-text" style="text-align:center;margin-top:1rem;font-size:1.1rem">
-                    Iniciando...
+            <!-- Upload de Marca d'água -->
+            <div class="setting-item" style="margin-top: 1.5rem">
+              <label>🖼️ Marca d'água (opcional)</label>
+              <div class="watermark-upload" id="watermark-upload">
+                <p style="font-size: 1rem; font-weight: 600">
+                  📁 Clique para adicionar marca d'água
                 </p>
-                
-                <h3 style="color: #90C43D; margin-top: 2rem;">📋 Log em Tempo Real</h3>
-                <div class="log-container" id="log-container">
-                    <div class="log-entry">
-                        <span class="log-time">--:--:--</span>
-                        <span class="log-message">Aguardando início do processamento...</span>
-                    </div>
-                </div>
+                <p
+                  style="
+                    color: rgba(255, 255, 255, 0.5);
+                    margin-top: 0.5rem;
+                    font-size: 0.85rem;
+                  "
+                >
+                  PNG recomendado (com transparência)
+                </p>
+              </div>
+              <img
+                id="watermark-preview"
+                class="watermark-preview"
+                alt="Preview da marca d'água"
+              />
+              <button
+                id="remove-watermark"
+                class="btn btn-secondary hidden"
+                style="margin-top: 0.5rem"
+              >
+                🗑️ Remover Marca d'água
+              </button>
             </div>
 
-            <!-- Resultados -->
-            <div class="card hidden" id="results-view">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h2 class="card-title" style="margin-bottom: 0;">✨ Clipes Gerados com Sucesso!</h2>
-                    <button class="btn btn-primary" onclick="resetUI()">+ Processar Outro Vídeo</button>
+            <!-- Botões de Salvar Configurações -->
+            <div
+              style="
+                margin-top: 2rem;
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+              "
+            >
+              <button
+                class="btn btn-primary"
+                onclick="savePreferences('current')"
+                style="flex: 1"
+              >
+                💾 Salvar para Este Vídeo
+              </button>
+              <button
+                class="btn btn-primary"
+                onclick="savePreferences('all')"
+                style="flex: 1"
+              >
+                💾 Salvar para Todos os Próximos
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload Inicial -->
+        <div class="card" id="upload-view">
+          <h2 class="card-title">Enviar Vídeo para Processamento</h2>
+          <div class="drop-area" id="drop-area">
+            <p style="font-size: 1.3rem; font-weight: 600">
+              🎬 Arraste seu vídeo aqui
+            </p>
+            <p style="color: rgba(255, 255, 255, 0.6); margin: 1rem 0">ou</p>
+            <button class="upload-btn" type="button">Selecionar Vídeo</button>
+            <p
+              style="
+                color: rgba(255, 255, 255, 0.5);
+                margin-top: 1rem;
+                font-size: 0.9rem;
+              "
+            >
+              Formatos aceitos: MP4, MOV, AVI | Máx: 5GB
+            </p>
+          </div>
+        </div>
+
+        <!-- Preview e Seleção de Modo -->
+        <div class="card hidden" id="preview-view">
+          <h2 class="card-title">🎬 Preview do Vídeo</h2>
+          <div class="video-preview-container">
+            <video id="video-preview" class="video-player" controls></video>
+          </div>
+
+          <h3 style="color: #90c43d; margin-top: 2rem">
+            Escolha o Modo de Processamento
+          </h3>
+          <div class="mode-selector">
+            <div
+              class="mode-btn active"
+              id="mode-auto"
+              onclick="selectMode('auto')"
+            >
+              <h3>🤖 Modo Automático</h3>
+              <p>
+                A IA analisa o vídeo e seleciona os melhores momentos
+                automaticamente usando análise de sentimento e detecção de
+                palavras-chave.
+              </p>
+            </div>
+            <div
+              class="mode-btn"
+              id="mode-manual"
+              onclick="selectMode('manual')"
+            >
+              <h3>✂️ Modo Manual</h3>
+              <p>
+                Você escolhe exatamente qual parte do vídeo processar usando a
+                timeline interativa abaixo.
+              </p>
+            </div>
+          </div>
+
+          <!-- Timeline para Modo Manual -->
+          <!-- Timeline para Modo Manual -->
+          <div id="timeline-section" class="hidden">
+            <div class="timeline-container">
+              <h4 style="color: #06a4e2; margin-bottom: 1rem">
+                ⏱️ Selecione o Trecho do Vídeo
+              </h4>
+
+              <!-- INPUTS MANUAIS DE TEMPO -->
+              <div class="timeline-controls">
+                <div class="setting-item" style="flex: 1">
+                  <label>⏮️ Início (HH:MM:SS)</label>
+                  <input
+                    type="text"
+                    id="manual-start-time"
+                    placeholder="00:00:00"
+                    style="
+                      font-size: 1.1rem;
+                      text-align: center;
+                      font-weight: bold;
+                    "
+                  />
                 </div>
-                <div class="results-grid" id="results-list"></div>
-                <button class="download-all-btn hidden" id="download-all-btn">
-                    📦 Baixar Tudo (ZIP)
+                <div class="setting-item" style="flex: 1">
+                  <label>⏭️ Fim (HH:MM:SS)</label>
+                  <input
+                    type="text"
+                    id="manual-end-time"
+                    placeholder="00:00:00"
+                    style="
+                      font-size: 1.1rem;
+                      text-align: center;
+                      font-weight: bold;
+                    "
+                  />
+                </div>
+                <button
+                  class="btn btn-primary"
+                  onclick="applyManualTimes()"
+                  style="align-self: flex-end"
+                >
+                  ✅ Aplicar Tempos
                 </button>
-                <div class="hidden" id="analytics-section">
-                    <h3 style="margin-top:2rem;color:#90C43D">📈 Métricas desta Sessão</h3>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-value" id="stat-clips">0</div>
-                            <div class="stat-label">Clipes Gerados</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="stat-score">0</div>
-                            <div class="stat-label">Score Médio</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="stat-duration">0s</div>
-                            <div class="stat-label">Duração Total</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="stat-sentiment">-</div>
-                            <div class="stat-label">Sentimento</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="stat-time">0s</div>
-                            <div class="stat-label">Tempo de Processamento</div>
-                        </div>
+              </div>
+
+              <div
+                style="
+                  margin: 1.5rem 0;
+                  padding: 1rem;
+                  background: rgba(144, 196, 61, 0.1);
+                  border-radius: 8px;
+                  border-left: 4px solid #90c43d;
+                "
+              >
+                <strong style="color: #90c43d">💡 Dica:</strong>
+                <span style="color: rgba(255, 255, 255, 0.8)">
+                  Use os botões abaixo para marcar o início/fim enquanto assiste
+                  o vídeo, OU digite os tempos manualmente acima.
+                </span>
+              </div>
+
+              <div class="timeline-controls">
+                <button
+                  class="btn btn-primary"
+                  onclick="setMarkerFromVideo('start')"
+                >
+                  📍 Marcar Início no Player
+                </button>
+                <button
+                  class="btn btn-primary"
+                  onclick="setMarkerFromVideo('end')"
+                >
+                  📍 Marcar Fim no Player
+                </button>
+                <button class="btn btn-secondary" onclick="resetTimeline()">
+                  🔄 Resetar Tudo
+                </button>
+              </div>
+
+              <!-- TIMELINE VISUAL -->
+              <div class="timeline-canvas-wrapper">
+                <canvas id="timeline-canvas" class="timeline-canvas"></canvas>
+                <div id="timeline-selection" class="timeline-selection"></div>
+                <div id="marker-start" class="timeline-marker start"></div>
+                <div id="marker-end" class="timeline-marker end"></div>
+              </div>
+
+              <!-- DISPLAY DE TEMPOS SELECIONADOS -->
+              <div
+                style="
+                  background: rgba(6, 164, 226, 0.1);
+                  padding: 1.5rem;
+                  border-radius: 12px;
+                  margin-top: 1rem;
+                  border: 2px solid #06a4e2;
+                "
+              >
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 1rem;
+                    text-align: center;
+                  "
+                >
+                  <div>
+                    <div
+                      style="
+                        color: #90c43d;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                      "
+                    >
+                      ⏮️ INÍCIO
                     </div>
+                    <div
+                      id="time-start"
+                      style="font-size: 1.8rem; font-weight: 800; color: #fff"
+                    >
+                      00:00:00
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="
+                        color: #06a4e2;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                      "
+                    >
+                      ⏱️ DURAÇÃO
+                    </div>
+                    <div
+                      id="time-duration"
+                      style="font-size: 1.8rem; font-weight: 800; color: #fff"
+                    >
+                      00:00:00
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="
+                        color: #90c43d;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                        margin-bottom: 0.5rem;
+                      "
+                    >
+                      ⏭️ FIM
+                    </div>
+                    <div
+                      id="time-end"
+                      style="font-size: 1.8rem; font-weight: 800; color: #fff"
+                    >
+                      00:00:00
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
 
-            <input type="file" id="file-input" accept="video/*" style="display:none">
-            <input type="file" id="watermark-input" accept="image/*" style="display:none">
+          <button
+            class="upload-btn"
+            style="width: 100%; margin-top: 2rem"
+            onclick="startProcessing()"
+          >
+            🚀 Iniciar Processamento
+          </button>
         </div>
 
-        <div class="tab-content" id="tab-history">
-            <div class="card">
-                <h2 class="card-title">📚 Histórico de Processamentos</h2>
-                <div id="history-list"></div>
+        <!-- Processamento -->
+        <div class="card hidden" id="processing-view">
+          <h2 class="card-title">Processando seu conteúdo...</h2>
+          <div class="progress-bar">
+            <div
+              class="progress-fill"
+              id="progress-fill"
+              style="width: 0%"
+            ></div>
+          </div>
+          <div class="progress-percent" id="progress-percent">0%</div>
+          <p
+            id="status-text"
+            style="text-align: center; margin-top: 1rem; font-size: 1.1rem"
+          >
+            Iniciando...
+          </p>
+
+          <h3 style="color: #90c43d; margin-top: 2rem">📋 Log em Tempo Real</h3>
+          <div class="log-container" id="log-container">
+            <div class="log-entry">
+              <span class="log-time">--:--:--</span>
+              <span class="log-message"
+                >Aguardando início do processamento...</span
+              >
             </div>
+          </div>
         </div>
 
-        <div class="tab-content" id="tab-dashboard">
-            <div class="card">
-                <h2 class="card-title">📊 Visão Geral</h2>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-value" id="total-clips">0</div>
-                        <div class="stat-label">Total de Clipes</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="avg-score">0</div>
-                        <div class="stat-label">Score Médio</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="total-sessions">0</div>
-                        <div class="stat-label">Sessões</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="avg-duration-stat">0s</div>
-                        <div class="stat-label">Duração Média</div>
-                    </div>
-                </div>
+        <!-- Resultados -->
+        <div class="card hidden" id="results-view">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 1.5rem;
+            "
+          >
+            <h2 class="card-title" style="margin-bottom: 0">
+              ✨ Clipes Gerados com Sucesso!
+            </h2>
+            <button class="btn btn-primary" onclick="resetUI()">
+              + Processar Outro Vídeo
+            </button>
+          </div>
+          <div class="results-grid" id="results-list"></div>
+          <button class="download-all-btn hidden" id="download-all-btn">
+            📦 Baixar Tudo (ZIP)
+          </button>
+          <div class="hidden" id="analytics-section">
+            <h3 style="margin-top: 2rem; color: #90c43d">
+              📈 Métricas desta Sessão
+            </h3>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-value" id="stat-clips">0</div>
+                <div class="stat-label">Clipes Gerados</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value" id="stat-score">0</div>
+                <div class="stat-label">Score Médio</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value" id="stat-duration">0s</div>
+                <div class="stat-label">Duração Total</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value" id="stat-sentiment">-</div>
+                <div class="stat-label">Sentimento</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value" id="stat-time">0s</div>
+                <div class="stat-label">Tempo de Processamento</div>
+              </div>
             </div>
-
-            <div class="card">
-                <h2 class="card-title">🔑 Palavras-Chave Mais Frequentes</h2>
-                <div class="chart-container"><canvas id="keywordsChart"></canvas></div>
-            </div>
-
-            <div class="card">
-                <h2 class="card-title">📖 Distribuição Narrativa</h2>
-                <div class="chart-container"><canvas id="narrativeChart"></canvas></div>
-            </div>
-
-            <div class="card">
-                <h2 class="card-title">🎭 Análise de Sentimento</h2>
-                <div class="chart-container"><canvas id="sentimentChart"></canvas></div>
-            </div>
+          </div>
         </div>
+
+        <input
+          type="file"
+          id="file-input"
+          accept="video/*"
+          style="display: none"
+        />
+        <input
+          type="file"
+          id="watermark-input"
+          accept="image/*"
+          style="display: none"
+        />
+      </div>
+
+      <div class="tab-content" id="tab-history">
+        <div class="card">
+          <h2 class="card-title">📚 Histórico de Processamentos</h2>
+          <div id="history-list"></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-dashboard">
+        <div class="card">
+          <h2 class="card-title">📊 Visão Geral</h2>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="total-clips">0</div>
+              <div class="stat-label">Total de Clipes</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="avg-score">0</div>
+              <div class="stat-label">Score Médio</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="total-sessions">0</div>
+              <div class="stat-label">Sessões</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="avg-duration-stat">0s</div>
+              <div class="stat-label">Duração Média</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">🔑 Palavras-Chave Mais Frequentes</h2>
+          <div class="chart-container">
+            <canvas id="keywordsChart"></canvas>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">📖 Distribuição Narrativa</h2>
+          <div class="chart-container">
+            <canvas id="narrativeChart"></canvas>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">🎭 Análise de Sentimento</h2>
+          <div class="chart-container">
+            <canvas id="sentimentChart"></canvas>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="/static/app.js"></script>
-</body>
+  </body>
 </html>
