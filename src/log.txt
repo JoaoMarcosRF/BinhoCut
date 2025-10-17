@@ -1,0 +1,49 @@
+16/10/2025 20:59:57 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 20:59:58 | UPLOAD: fantastico-sobe-para-225-o-numero-de-casos-suspeitos-de-intoxicacao-por-metanol-no-brasil.mp4
+16/10/2025 21:00:08 | ⏱️ Extração de áudio: 10.09s
+16/10/2025 21:00:32 | Sentimento: NEUTRO (0.50)
+16/10/2025 21:03:50 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 21:03:51 | UPLOAD: fantastico-sobe-para-225-o-numero-de-casos-suspeitos-de-intoxicacao-por-metanol-no-brasil.mp4
+16/10/2025 21:03:51 | Carregando modelo Whisper: tiny
+16/10/2025 21:03:54 | ✓ Modelo tiny carregado com sucesso
+16/10/2025 21:04:02 | ⏱️ Extração de áudio: 8.34s
+16/10/2025 21:04:24 | Sentimento: NEUTRO (0.50)
+16/10/2025 21:07:57 | ⏱️ Transcrição (Whisper tiny): 243.49s
+16/10/2025 21:07:57 | Modo de corte: AUTOMÁTICO (IA)
+16/10/2025 21:07:57 | ⏱️ Análise de trechos: 243.52s
+16/10/2025 21:07:57 | Detectando rostos - Video: 640x360, Crop: 640px
+16/10/2025 21:13:25 | ⏱️ Renderização clipe 1: 327.92s
+16/10/2025 21:13:25 | Fila de processamento liberada.
+16/10/2025 22:20:34 | Iniciando novo processamento, bloqueando a fila.
+16/10/2025 22:20:36 | UPLOAD: fantastico-sobe-para-225-o-numero-de-casos-suspeitos-de-intoxicacao-por-metanol-no-brasil.mp4
+16/10/2025 22:20:36 | Carregando modelo Whisper: tiny
+16/10/2025 22:20:42 | ✓ Modelo tiny carregado com sucesso
+16/10/2025 22:21:01 | ⏱️ Extração de áudio: 18.79s
+16/10/2025 22:21:45 | Sentimento: NEUTRO (0.50)
+16/10/2025 22:27:50 | ⏱️ Transcrição (Whisper tiny): 427.27s
+16/10/2025 22:27:50 | Modo de corte: AUTOMÁTICO (IA)
+16/10/2025 22:27:50 | ⏱️ Análise de trechos: 427.31s
+16/10/2025 22:27:50 | Detectando rostos - Video: 640x360, Crop: 640px
+16/10/2025 22:37:53 | ⏱️ Renderização clipe 1: 603.87s
+16/10/2025 22:37:54 | Fila de processamento liberada.
+17/10/2025 10:57:23 | Iniciando novo processamento, bloqueando a fila.
+17/10/2025 10:57:24 | UPLOAD: fantastico-sobe-para-225-o-numero-de-casos-suspeitos-de-intoxicacao-por-metanol-no-brasil.mp4
+17/10/2025 10:57:44 | ⏱️ Extração de áudio: 19.41s
+17/10/2025 10:58:16 | Sentimento: NEUTRO (0.50)
+17/10/2025 11:05:08 | ⏱️ Transcrição (Whisper base): 464.02s
+17/10/2025 11:05:08 | Modo de corte: AUTOMÁTICO (IA)
+17/10/2025 11:05:08 | ⏱️ Análise de trechos: 464.04s
+17/10/2025 11:05:09 | Detectando rostos - Video: 640x360, Crop: 640px
+17/10/2025 11:05:34 | ⚠️ Tentativa de upload enquanto um processamento está em andamento.
+17/10/2025 11:07:41 | Iniciando novo processamento, bloqueando a fila.
+17/10/2025 11:07:42 | UPLOAD: fantastico-sobe-para-225-o-numero-de-casos-suspeitos-de-intoxicacao-por-metanol-no-brasil.mp4
+17/10/2025 11:07:42 | Carregando modelo Whisper: tiny
+17/10/2025 11:07:44 | ✓ Modelo tiny carregado com sucesso
+17/10/2025 11:07:52 | ⏱️ Extração de áudio: 8.20s
+17/10/2025 11:08:10 | Sentimento: NEUTRO (0.50)
+17/10/2025 11:10:22 | ⏱️ Transcrição (Whisper tiny): 157.98s
+17/10/2025 11:10:22 | Modo de corte: AUTOMÁTICO (IA)
+17/10/2025 11:10:22 | ⏱️ Análise de trechos: 157.98s
+17/10/2025 11:10:22 | Detectando rostos - Video: 640x360, Crop: 640px
+17/10/2025 11:13:15 | ⏱️ Renderização clipe 1: 173.82s
+17/10/2025 11:13:16 | Fila de processamento liberada.

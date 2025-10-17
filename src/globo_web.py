@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-GLOBINHO - Sistema de IA para Criação de Conteúdo
-Desenvolvido para o Desafio Globo 4.0
-VERSÃO FINAL - PRONTA PARA PRODUÇÃO
-"""
 
 import os, sys, subprocess, cv2, torch, whisper, json, numpy as np
 import tempfile, shutil, uuid, zipfile, librosa, threading, time, pickle, random
@@ -326,7 +321,7 @@ def generate_strategic_report(score, narrative_type, sentiment_data, clip_data, 
 
 💡 DICA: Use este conteúdo para iniciar conversas nas redes sociais e direcionar tráfego para o conteúdo completo no Globoplay.
 
-Gerado automaticamente por GLOBINHO AI 🤖"""
+Gerado automaticamente por BINHO CUT 🤖"""
 
 def generate_social_media_post_file(text_content, sentiment_data):
     title = text_content.split('.')[0][:100].upper()
